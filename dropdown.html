@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DropdownMenu</title>
+    <style>
+          body{
+            margin: 0px;
+        }
+        .box1{
+            overflow: hidden;
+            background-color: green;
+            
+        }
+        .box1 a{
+            color:black;
+            font-size: large;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-align: center;
+            float: left;
+            padding: 11px 13px;
+            text-decoration: none;
+
+        
+
+
+        }
+        .box1 a:hover, .prova:hover {
+            background-color: red;
+
+        }
+        .indirizzi{
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 20px;
+        color: black;
+        }
+        .menu{
+            float: left;
+            overflow: hidden;
+        }
+        .menu .prova{
+            color:black;
+            font-size: large;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-align: center;
+            float: left;
+            padding: 11px 13px;
+            background-color: green;
+            border: none;
+            outline: none;
+
+            
+
+        }
+        .dentro{
+            display: none;
+            position: absolute;
+            background-color: orange;
+            width:  90px;
+            
+            
+            
+        
+            
+
+        }
+        .dentro a{
+            color:black;
+            padding: 10px 12px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+
+        }
+        .dentro a:hover{
+            background-color: gray;
+        }
+        .menu:hover .dentro {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+<div class="box1">
+    <a href="">Grafica</a>
+    <a href="">Chimica</a>
+    <a href="">Informatica</a>
+    <div class="menu">
+        <button class="prova">Sezioni</button>
+        <div class="dentro">
+            <a href="">Sezione A</a>
+            <a href="">Sezione B</a>
+            <a href="">Sezione C</a>
+            <a href="">Sezione D</a>
+            <a href="">Sezione E</a>
+            <a href="">Sezione F</a>
+           
+        </div>
+    </div>
+</div>
+<p class="indirizzi">Ecco gli indirizzi dell'istituto Cannizzaro con menù dropdown sulle sezioni</p>
+    </style>
+    
+</body>
+</html>
