@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calcolatrice</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <style>
+  body{
+    background-color: aqua;
+    margin:auto;
+  }
+  .calcolatrice{
+    width: 15%;
+    height: 15rem;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: grey;
+    margin-top: 100px;
+    border-radius: 40px;
+    border: 2px solid black;
+
+  }
+  .spazio1{
+    margin-top: 20px;
+
+  }
+  .spazio2{
+    margin-top: 20px;
+  }
+  .numero{
+    width: 60%;
+    margin-left: 40px ;
+    margin-right: auto;
+    
+  }
+  .spazio3{
+    margin-top:40px;
+  }
+  .bottoni{
+    width: 30%;
+    height: 30px;
+
+  }
+  .tasti{
+    margin-top:30px;
+  }
+  .bottoni:hover{
+    background-color: bisque;
+  }
+  .nome{
+   text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 25px;
+        color: black;
+
+  }
+  
+    
+  </style>
+  <body>
+     
+      
+  </body>
+  <p class="nome">Calcolatrice V1</p>
+  <div class=calcolatrice>
+    <div class=spazio1>
+      <input type="text" class="numero" placeholder="inserisci il numero "id="numero1" />
+    </div>
+    <div class=spazio2>
+     <input type="text" class="numero" placeholder="inserisci il numero "id="numero2" />
+      
+    </div>
+    <div class=tasti>
+      <button onclick="calcolo('+')" type="button" class=bottoni>+</button>
+      <button onclick="calcolo('-')" type="button" class=bottoni>-</button>
+      <button  onclick="calcolo('*')" type="button" class=bottoni>*</button>
+      <button onclick="calcolo('/')" type="button" class=bottoni>%</button>
+      
+      
+    </div>
+    <div class=spazio3>
+      <input type="text" class="numero" readonly id="risultato"  />
+    </div>
+    
+  </div>
+  <script>
+    var risultato=0;
+    function calcolo(simbolo){
+      var n1=parseFloat(document.getElementById('numero1').value);
+      var n2=parseFloat(document.getElementById('numero2').value);
+      
+    
+    if (isNaN(n1) || isNaN(n2)) {
+            document.getElementById('risultato').value = 'aggiungi num';
+            return;}
+
+        switch (simbolo) {
+            case '+':
+                risultato = n1+n2;
+                break;
+            case '-':
+                risultato = n1-n2;
+                break;
+            case '*':
+                risultato = n1*n2;
+                break;
+            case '/':
+                if(n2==0){
+                  risultato='impossibile'
+                }
+                else{
+                  risultato=n1/n2;
+                }
+                break;}
+             
+        document.getElementById('risultato').value=risultato;
+      }
+      
+              
+  </script>
+</html>
