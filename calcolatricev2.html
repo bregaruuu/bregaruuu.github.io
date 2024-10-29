@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calcolatricev2</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <style>
+  body{
+    background-color: aqua;
+    margin:auto;
+  }
+  .calcolatrice{
+    width: 15%;
+    height: 15rem;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: grey;
+    margin-top: 100px;
+    border-radius: 40px;
+    border: 2px solid black;
+
+  }
+  .spazio1{
+    margin-top: 20px;
+
+  }
+ 
+  .numero{
+    width: 60%;
+    margin-left: 40px ;
+    margin-right: auto;
+    
+  }
+  .spazio2{
+    margin-top:40px;
+  }
+  .bottoni{
+    width: 30%;
+    height: 30px;
+
+  }
+  .tasti{
+    margin-top:30px;
+  }
+  .bottoni:hover{
+    background-color: bisque;
+  }
+  .nome{
+   text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 25px;
+        color: black;
+
+  }
+  
+    
+  </style>
+  <body>
+     
+      
+  </body>
+  <p class="nome">Calcolatrice V2</p>
+  <div class=calcolatrice>
+    <div class=spazio1>
+      <input type="text" class="numero" placeholder="inserisci il numero "id="numero" />
+    </div>
+ 
+    <div class=tasti>
+      <button onclick="calcolo('+')" type="button" class=bottoni>+</button>
+      <button onclick="calcolo('-')" type="button" class=bottoni>-</button>
+      <button  onclick="calcolo('*')" type="button" class=bottoni>*</button>
+      <button onclick="calcolo('/')" type="button" class=bottoni>%</button>
+      <button onclick="stampa()" type="button" class=bottoni>=</button>
+      
+      
+      
+    </div>
+    <div class=spazio2>
+      <input type="text" class="numero" readonly id="risultato"  />
+    </div>
+    
+  </div>
+  <script>
+    let operazione=null;
+    let n1=null;
+    function calcolo(simbolo) {
+            const numeroInput = document.getElementById('numero').value;
+            const numero = parseFloat(numeroInput);
+
+            if (isNaN(numero)) {
+                document.getElementById('risultato').value = 'Aggiungi un numero';
+                return;
+            }
+
+            n1 = numero;
+            operazione = simbolo;
+
+            document.getElementById('numero').value = '';
+        }
+        function stampa() {
+            const n2 = parseFloat(document.getElementById('numero').value);
+
+            if (isNaN(n2) || operazione === null) {
+                document.getElementById('risultato').value = 'Inserisci num';
+                return;
+            }
+
+            let risultato = 0;
+
+            switch (operazione) {
+                case '+':
+                    risultato = n1+n2;
+                    break;
+                case '-':
+                    risultato = n1-n2;
+                    break;
+                case '*':
+                    risultato = n1*n2;
+                    break;
+                case '/':
+                    if (n2 === 0) {
+                        risultato = 'Impossibile';
+                    } else {
+                        risultato = n1/n2;
+                    }
+                    break;
+            }
+
+            document.getElementById('risultato').value = risultato;
+            
+            n1 = null;
+            operazione = null;
+            document.getElementById('numero').value = '';
+        }
+
+      
+              
+  </script>
+</html>
