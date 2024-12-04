@@ -1,0 +1,172 @@
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabella Anagrafica</title>
+    <style>
+        body {
+            font-family: 'Verdana', sans-serif; 
+            background-color: #e8f6f3;
+            margin: 0;
+            padding: 30px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            color: #2a9d8f;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .form-container, .table-container {
+            padding: 20px;
+            width: 45%;
+            background-color: transparent;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .input-div {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .form-container input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: #f7f7f7;
+            transition: border-color 0.3s;
+        }
+
+        .form-container input[type="text"]:focus {
+            border-color: #2a9d8f;
+            outline: none;
+            background-color: #fff;
+        }
+
+        .form-container button {
+            background-color: #2a9d8f;
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .form-container button:hover {
+            background-color: #21867a;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: transparent;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            font-size: 14px;
+            color: #333;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #2a9d8f;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #fafafa;
+        }
+
+        td:hover {
+            background-color: #e6f4f1;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .form-container, .table-container {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Tabella Anagrafica</h2>
+    <div class="container" id="main-container">
+        <div class="table-container">
+            <table id="tabellaDati">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Indirizzo</th>
+                        <th>Città</th>
+                        <th>Email</th>
+                        <th>Codice Fiscale</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        
+        var dati = localStorage.getItem('datiAnagrafici');
+
+        if (dati) {
+            var righe = dati.split("|"); 
+            var corpot = document.getElementById("tabellaDati").getElementsByTagName('tbody')[0];
+
+            for (var i = 0; i < righe.length; i++) {
+                var newRow = corpot.insertRow();
+                var celle = righe[i].split(","); 
+
+                for (var j = 0; j < celle.length; j++) {
+                    var cell = newRow.insertCell(j);
+                    cell.textContent = celle[j];
+                }
+            }
+        } else {
+            alert("Nessun dato trovato!");
+        }
+    </script>
+
+</body>
+</html>
