@@ -123,7 +123,7 @@
               if (righe[i].trim() === "") continue;
 
               let colonne = righe[i].split(',');
-              if (colonne.length < 2) continue; // Ignora righe con meno di 2 colonne
+              if (colonne.length < 2) continue; 
 
               let tr = document.createElement('tr');
               for (let colonna of colonne) {
@@ -133,8 +133,7 @@
               }
               tabella.appendChild(tr);
 
-              // Supponiamo che la prima colonna contenga le etichette (x) e la seconda colonna contenga i dati numerici (y)
-              etichetteGrafico.push(colonne[0].trim()); // Etichetta (prima colonna)
+             
               datiGrafico.push(parseFloat(colonne[1].trim())); 
             }
 
@@ -144,7 +143,6 @@
             document.getElementById('contenuto').innerHTML = '';
             document.getElementById('contenuto').appendChild(tabella);
 
-            
             creaGrafico(etichetteGrafico, datiGrafico);
           };
         } else {
@@ -169,6 +167,11 @@
           },
           options: {
             responsive: true,
+            plugins: {
+              tooltip: {
+                enabled: false 
+              }
+            },
             scales: {
               y: {
                 beginAtZero: true 
