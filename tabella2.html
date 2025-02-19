@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -94,94 +93,104 @@
     <div id="contenuto"></div>
     <canvas id="grafico"></canvas>
 
-    <script>
-      function apri(input) {
-        let file = input.files[0];
+   <script>
+  function apri(input) {
+    let file = input.files[0];
 
-        if (file && file.type === 'text/csv') {
-          let reader = new FileReader();
-          reader.readAsText(file);
+    if (file && file.type === 'text/csv') {
+      let reader = new FileReader();
+      reader.readAsText(file);
 
-          reader.onload = function() {
-            let contenuto = reader.result;
-            let righe = contenuto.split('\n');
-            let tabella = document.createElement('table');
-            
-            let intestazione = righe[0].split(',');
-            let trIntestazione = document.createElement('tr');
-            for (let colonna of intestazione) {
-              let th = document.createElement('th');
-              th.textContent = colonna.replace(/\"/g, '');
-              trIntestazione.appendChild(th);
-            }
-            tabella.appendChild(trIntestazione);
+      reader.onload = function() {
+        let contenuto = reader.result;
+        let righe = contenuto.split('\n');
+        let tabella = document.createElement('table');
+        
+        let intestazione = righe[0].split(',');
+        let trIntestazione = document.createElement('tr');
+        for (let colonna of intestazione) {
+          let th = document.createElement('th');
+          th.textContent = colonna.replace(/\"/g, '');
+          trIntestazione.appendChild(th);
+        }
+        tabella.appendChild(trIntestazione);
 
-            let etichetteGrafico = [];
-            let datiGrafico = [];
+        let etichetteGrafico = [];  // Inizializza l'array delle etichette
+        let datiGrafico = [];
 
-            for (let i = 1; i < righe.length; i++) {
-              // Ignora righe vuote
-              if (righe[i].trim() === "") continue;
+        for (let i = 1; i < righe.length; i++) {
+          // Ignora righe vuote
+          if (righe[i].trim() === "") continue;
 
-              let colonne = righe[i].split(',');
-              if (colonne.length < 2) continue; 
+          let colonne = righe[i].split(',');
+          if (colonne.length < 2) continue;  // Assicurati che ci siano almeno due colonne
 
-              let tr = document.createElement('tr');
-              for (let colonna of colonne) {
-                let td = document.createElement('td');
-                td.textContent = colonna.replace(/\"/g, '');
-                tr.appendChild(td);
-              }
-              tabella.appendChild(tr);
+          let tr = document.createElement('tr');
+          for (let colonna of colonne) {
+            let td = document.createElement('td');
+            td.textContent = colonna.replace(/\"/g, '');
+            tr.appendChild(td);
+          }
+          tabella.appendChild(tr);
 
-             
-              datiGrafico.push(parseFloat(colonne[1].trim())); 
-            }
+          // Aggiungi l'etichetta e il dato al grafico
+          etichetteGrafico.push(colonne[0].trim());  // Prima colonna per etichetta
+          datiGrafico.push(parseFloat(colonne[1].trim()));  // Seconda colonna per i dati
+        }
 
-            console.log("Etichette:", etichetteGrafico);
-            console.log("Dati:", datiGrafico);
+        // Log per debug
+        console.log("Etichette:", etichetteGrafico);
+        console.log("Dati:", datiGrafico);
 
-            document.getElementById('contenuto').innerHTML = '';
-            document.getElementById('contenuto').appendChild(tabella);
+        // Controllo se i dati non sono vuoti
+        if (etichetteGrafico.length === 0 || datiGrafico.length === 0) {
+          alert("Nessun dato valido per il grafico.");
+          return;
+        }
 
-            creaGrafico(etichetteGrafico, datiGrafico);
-          };
-        } else {
-          alert("Per favore, carica un file CSV valido.");
+        document.getElementById('contenuto').innerHTML = '';
+        document.getElementById('contenuto').appendChild(tabella);
+
+        // Crea il grafico con le etichette e i dati
+        creaGrafico(etichetteGrafico, datiGrafico);
+      };
+    } else {
+      alert("Per favore, carica un file CSV valido.");
+    }
+  }
+
+  function creaGrafico(etichette, dati) {
+    const ctx = document.getElementById('grafico').getContext('2d');
+    
+    new Chart(ctx, {
+      type: 'bar', 
+      data: {
+        labels: etichette, 
+        datasets: [{
+          label: 'Andamento dei Dati',
+          data: dati, 
+          backgroundColor: 'rgba(40, 167, 69, 0.7)', 
+          borderColor: 'rgba(40, 167, 69, 1)', 
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          tooltip: {
+            enabled: false 
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true 
+          }
         }
       }
-
-      function creaGrafico(etichette, dati) {
-        const ctx = document.getElementById('grafico').getContext('2d');
-        
-        new Chart(ctx, {
-          type: 'bar', 
-          data: {
-            labels: etichette, 
-            datasets: [{
-              label: 'Andamento dei Dati',
-              data: dati, 
-              backgroundColor: 'rgba(40, 167, 69, 0.7)', 
-              borderColor: 'rgba(40, 167, 69, 1)', 
-              borderWidth: 1
-            }]
-          },
-          options: {
-            responsive: true,
-            plugins: {
-              tooltip: {
-                enabled: false 
-              }
-            },
-            scales: {
-              y: {
-                beginAtZero: true 
-              }
-            }
-          }
-        });
-      }
-    </script>
+    });
+  }
+</script>
 
 </body>
 </html>
+
