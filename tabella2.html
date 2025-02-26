@@ -115,16 +115,12 @@
         }
         tabella.appendChild(trIntestazione);
 
-        let etichetteGrafico = [];  // Inizializza l'array delle etichette
+        let etichetteGrafico = [];  
         let datiGrafico = [];
-
         for (let i = 1; i < righe.length; i++) {
-          // Ignora righe vuote
           if (righe[i].trim() === "") continue;
-
           let colonne = righe[i].split(',');
-          if (colonne.length < 2) continue;  // Assicurati che ci siano almeno due colonne
-
+          if (colonne.length < 2) continue; 
           let tr = document.createElement('tr');
           for (let colonna of colonne) {
             let td = document.createElement('td');
@@ -133,16 +129,19 @@
           }
           tabella.appendChild(tr);
 
-          // Aggiungi l'etichetta e il dato al grafico
-          etichetteGrafico.push(colonne[0].trim());  // Prima colonna per etichetta
-          datiGrafico.push(parseFloat(colonne[1].trim()));  // Seconda colonna per i dati
+          
+          let valore = parseFloat(colonne[1].replace(/\"/g, '').trim());  
+          if (!isNaN(valore)) {
+            etichetteGrafico.push(colonne[0].trim());  
+            datiGrafico.push(valore);  
+          }
         }
 
-        // Log per debug
+        
         console.log("Etichette:", etichetteGrafico);
         console.log("Dati:", datiGrafico);
 
-        // Controllo se i dati non sono vuoti
+        
         if (etichetteGrafico.length === 0 || datiGrafico.length === 0) {
           alert("Nessun dato valido per il grafico.");
           return;
@@ -151,7 +150,7 @@
         document.getElementById('contenuto').innerHTML = '';
         document.getElementById('contenuto').appendChild(tabella);
 
-        // Crea il grafico con le etichette e i dati
+        
         creaGrafico(etichetteGrafico, datiGrafico);
       };
     } else {
@@ -163,7 +162,7 @@
     const ctx = document.getElementById('grafico').getContext('2d');
     
     new Chart(ctx, {
-      type: 'bar', 
+      type: 'line', 
       data: {
         labels: etichette, 
         datasets: [{
@@ -193,4 +192,5 @@
 
 </body>
 </html>
+
 
