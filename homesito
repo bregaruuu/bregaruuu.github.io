@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educazione Stradale</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        html, body {
+            height: 100%; 
+            margin: 0; 
+            overflow-x: hidden; 
+            font-family: 'Arial', 
+            background-image: url(immagini/photo-1542242476-5a3565835a38.jpg); /
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            
+
+        }
+
+        body {
+            display: flex;
+            flex-direction: column; 
+            background-color: #f8f9fa; 
+        }
+
+        .navbar {
+            background-color: black; 
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .navbar ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            color: white; 
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            color: #ffc107; 
+        }
+
+        .intro {
+            margin-top: 60px; 
+            text-align: center;
+            padding: 20px; 
+            max-width: 800px; 
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+
+        .intro h1 {
+            color: #343a40; 
+            font-size: 2.5em;
+            font-family: 'Georgia', serif; 
+        }
+        .intro{
+            text-align: center;
+            padding: 20px; 
+            max-width: 800px; 
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+
+        .intro p {
+            margin: 15px 0;
+            line-height: 1.6;
+            font-size: 1.1em;
+            color: white;
+            font-family: 'Verdana', sans-serif; 
+            border-radius: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: black; 
+            color: white; 
+            width: 100%;
+            position: relative; 
+            bottom: 0; 
+        }
+        .educazione{
+            margin-top: 30px; 
+            text-align: center;
+            padding: 20px; 
+            max-width: 800px;
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+        
+        .educazione p {
+            margin: 15px 0; 
+           line-height: 1.6; 
+          font-size: 1.1em; 
+          color: white; 
+          padding: 20px; 
+         border-radius: 10px; 
+         font-family: 'Verdana', sans-serif;
+    
+        }
+    .educazione h2{
+        color: #343a40; 
+        font-size: 2.5em;
+        font-family: 'Georgia', serif; 
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="leggi.html"><i class="fas fa-gavel"></i> Leggi e Normative</a></li>
+                <li><a href="#sicurezza"><i class="fas fa-shield-alt"></i> Sicurezza Stradale</a></li>
+                <li><a href="#corsi"><i class="fas fa-book-open"></i> Corsi di Formazione</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="intro">
+            <h1>Benvenuti nella nostra piattaforma di Educazione Stradale</h1>
+            <p>
+                L'educazione stradale è fondamentale per garantire la sicurezza di tutti gli utenti della strada. 
+                Attraverso la formazione e la sensibilizzazione, possiamo ridurre gli incidenti e promuovere 
+                comportamenti responsabili. 
+            
+            
+                Conoscere le regole della strada non è solo un obbligo legale, ma una responsabilità civile. 
+                Ogni anno, in tutto il mondo, migliaia di persone perdono la vita a causa di incidenti stradali 
+                evitabili. La nostra missione è educare i conducenti, i pedoni e i ciclisti su come comportarsi 
+                in modo sicuro e rispettoso sulle strade. 
+                Offriamo risorse su segnaletica, normative, comportamenti sicuri, e corsi di formazione per 
+                tutti gli utenti della strada. Unisciti a noi per rendere le strade più sicure per tutti!
+            </p>
+            
+        </section>
+        <section id="educazione-stradale" class="educazione">
+            <h2>Cos'è l'Educazione Stradale?</h2>
+            <p>
+                L'educazione stradale è un insieme di conoscenze e pratiche che mirano a sensibilizzare gli utenti 
+                della strada riguardo alla sicurezza e al rispetto delle norme. Essa è fondamentale per 
+                prevenire incidenti e garantire una convivenza serena tra pedoni, ciclisti e automobilisti.
+                 Attraverso corsi e attività pratiche, si insegna a riconoscere i segnali stradali, a comprendere le regole del traffico 
+                 e a sviluppare comportamenti responsabili.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Educazione Stradale. Tutti i diritti riservati.</p>
+    </footer>
+</body>
+</html>
