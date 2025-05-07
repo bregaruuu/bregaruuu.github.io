@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Accesso con JSON</title>
+  <style>
+    /* Modifica il colore di sfondo del body */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f2f4f7; /* Nuovo colore di sfondo chiaro */
+    }
+    
+    /* Contenitore per il form, rettangolare e centrato */
+    .form-container {
+      width: 100%;
+      max-width: 400px; /* Impostiamo una larghezza massima per il contenitore */
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra per il contenitore */
+      border: 1px solid #ccc; /* Bordo del contenitore */
+    }
+
+    /* Stile del form */
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Nuovo stile per i label */
+    label {
+      font-size: 16px; /* Aumento della dimensione del font */
+      margin-bottom: 8px; /* Aumento dello spazio sotto il label */
+      font-weight: bold;
+      color: #333; /* Colore grigio scuro per i label */
+      text-transform: uppercase; /* Trasforma il testo in maiuscolo */
+      letter-spacing: 1px; /* Aggiungi uno spazio tra le lettere */
+    }
+
+    /* Stile degli input */
+    input {
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      width: 100%;
+    }
+
+    /* Stile del bottone */
+    button {
+      background-color: blue;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: skyblue;
+    }
+
+    
+    #messaggio {
+      color: red;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h1>Accesso Utente</h1>
+
+    
+    <form id="loginForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" required><br>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" required><br>
+
+      <label for="jsonFile">Carica file JSON:</label>
+      <input type="file" id="jsonFile" accept=".json,.txt" required><br>
+
+      <button type="submit">Accedi</button>
+    </form>
+
+    <p id="messaggio"></p>
+  </div>
+
+  <script>
+    
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const usernameInput = document.getElementById('username').value;
+      const passwordInput = document.getElementById('password').value;
+      const file = document.getElementById('jsonFile').files[0];
+
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        try {
+          const jsonData = JSON.parse(event.target.result);
+          const utente = jsonData.utente;
+
+          
+          if (utente.user === usernameInput && utente.password === passwordInput) {
+            
+            localStorage.setItem('jsonData', JSON.stringify(jsonData));
+            window.location.href = 'benvenuto.html';
+          } else {
+        
+            document.getElementById('messaggio').textContent = "Credenziali non valide.";
+          }
+        } catch (err) {
+          
+          document.getElementById('messaggio').textContent = "Errore nel file JSON.";
+        }
+      };
+      reader.readAsText(file);
+    });
+  </script>
+
+</body>
+</html>
