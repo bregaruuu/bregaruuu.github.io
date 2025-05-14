@@ -1,138 +1,191 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Accesso con JSON</title>
-  <style>
-    /* Modifica il colore di sfondo del body */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f2f4f7; /* Nuovo colore di sfondo chiaro */
-    }
-    
-    /* Contenitore per il form, rettangolare e centrato */
-    .form-container {
-      width: 100%;
-      max-width: 400px; /* Impostiamo una larghezza massima per il contenitore */
-      padding: 20px;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra per il contenitore */
-      border: 1px solid #ccc; /* Bordo del contenitore */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- FontAwesome -->
+    <style>
+       /* Corpo della pagina */
+       body {
+           margin: 0;
+           padding: 0;
+           font-size: 14px;
+           font-family: Arial, Helvetica, sans-serif;
+           background-color: #f4f4f9; 
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           height: 100vh; 
+       }
 
-    /* Stile del form */
-    form {
-      display: flex;
-      flex-direction: column;
-    }
+       /* Box contenitore */
+       .box {
+           width: 100%;
+           max-width: 400px;
+           background-color: white;
+           border-radius: 10px;
+           padding: 2rem;
+           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+           text-align: center;
+       }
 
-    /* Nuovo stile per i label */
-    label {
-      font-size: 16px; /* Aumento della dimensione del font */
-      margin-bottom: 8px; /* Aumento dello spazio sotto il label */
-      font-weight: bold;
-      color: #333; /* Colore grigio scuro per i label */
-      text-transform: uppercase; /* Trasforma il testo in maiuscolo */
-      letter-spacing: 1px; /* Aggiungi uno spazio tra le lettere */
-    }
+       /* Titolo */
+       .box h1 {
+           margin-bottom: 1.5rem;
+           color: #333;
+           font-size: 24px;
+           font-weight: bold;
+       }
 
-    /* Stile degli input */
-    input {
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
-      width: 80%;
-    }
+       /* Etichetta dei campi */
+       label {
+           font-size: 16px;
+           font-weight: bold;
+           color: #333;
+           display: block;
+           margin-bottom: 0.5rem;
+           text-align: left;
+       }
 
-    /* Stile del bottone */
-    button {
-      background-color: blue;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+       /* Input e campo file */
+       input[type="text"], input[type="password"], input[type="file"] {
+           width: 100%;
+           padding: 10px;
+           margin-bottom: 1rem;
+           border-radius: 5px;
+           border: 1px solid #ccc;
+           font-size: 14px;
+           box-sizing: border-box;
+       }
 
-    button:hover {
-      background-color: skyblue;
-    }
+       /* Icona per la visibilità della password */
+       #container-psw {
+           position: relative;
+       }
+       #eye {
+           position: absolute;
+           top: 50%;
+           right: 10px;
+           transform: translateY(-50%);
+           cursor: pointer;
+           color: #888;
+       }
 
-    
-    #messaggio {
-      color: red;
-      font-weight: bold;
-      text-align: center;
-    }
-  </style>
+       /* Bottone di accesso */
+       button {
+           background-color: #007bff;
+           color: white;
+           border: none;
+           padding: 10px;
+           width: 100%;
+           font-size: 16px;
+           border-radius: 5px;
+           cursor: pointer;
+           transition: background-color 0.3s ease;
+       }
+
+       button:hover {
+           background-color: #0056b3;
+       }
+
+       /* Messaggio di errore */
+       #messaggio {
+           color: red;
+           font-weight: bold;
+           margin-top: 1rem;
+       }
+
+    </style>
 </head>
 <body>
 
-  <div class="form-container">
-    <h1>Accesso Utente</h1>
+    <!--CONTENITORE-->
+    <div class="box">
+        <h1>Accesso utente</h1>
+        <form id="loginForm">
+            <label for="name">Username:</label>
+            <input type="text" id="username" required>
+
+            <label for="psw">Password:</label>
+            <div id="container-psw">
+                <input type="password" id="password" required>
+                <span id="eye"><i class="fa-solid fa-eye"></i></span>
+            </div>
+
+            <label for="jsonFile">Carica file JSON:</label>
+            <input type="file" id="jsonFile" accept=".json,.txt" required><br>
+
+            <button type="submit">Accedi</button>
+        </form>
+        <p id="messaggio"></p>
+    </div>
 
     
-    <form id="loginForm">
-      <label for="username">Username:</label>
-      <input type="text" id="username" required><br>
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gestione dell'occhio per la visibilità della password
+            const eyeIcon = document.getElementById('eye');
+            const passwordInput = document.getElementById('password');
 
-      <label for="password">Password:</label>
-      <input type="password" id="password" required><br>
+            eyeIcon.addEventListener('click', function () {
+                // Cambia il tipo del campo password tra 'password' e 'text'
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';  // Mostra la password
+                    eyeIcon.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';  // Cambia l'icona
+                } else {
+                    passwordInput.type = 'password';  // Nasconde la password
+                    eyeIcon.innerHTML = '<i class="fa-solid fa-eye"></i>';  // Cambia l'icona
+                }
+            });
 
-      <label for="jsonFile">Carica file JSON:</label>
-      <input type="file" id="jsonFile" accept=".json,.txt" required><br>
-
-      <button type="submit">Accedi</button>
-    </form>
-
-    <p id="messaggio"></p>
-  </div>
-
-  <script>
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
     
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const usernameInput = document.getElementById('username').value;
-      const passwordInput = document.getElementById('password').value;
-      const file = document.getElementById('jsonFile').files[0];
-
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        try {
-          const jsonData = JSON.parse(event.target.result);
-          const utente = jsonData.utente;
-
-          
-          if (utente.user === usernameInput && utente.password === passwordInput) {
-            
-            localStorage.setItem('jsonData', JSON.stringify(jsonData));
-            window.location.href = 'benvenuto.html';
-          } else {
-        
-            document.getElementById('messaggio').textContent = "Credenziali non valide.";
-          }
-        } catch (err) {
-          
-          document.getElementById('messaggio').textContent = "Errore nel file JSON.";
-        }
-      };
-      reader.readAsText(file);
-    });
-  </script>
+                const usernameInput = document.getElementById('username').value;
+                const passwordInput = document.getElementById('password').value;
+                const file = document.getElementById('jsonFile').files[0];
+    
+                if (!file) {
+                    fetch('username.json')  // Carica il file JSON dal server
+                        .then(response => response.json())
+                        .then(jsonData => {
+                            const utente = jsonData.utente;
+    
+                            // Verifica username e password
+                            if (utente.user === usernameInput && utente.password === passwordInput) {
+                                localStorage.setItem('jsonData', JSON.stringify(jsonData));
+                                window.location.href = 'benvenuto.html';  // Reindirizza alla pagina di benvenuto
+                            } else {
+                                document.getElementById('messaggio').textContent = "Credenziali non valide.";
+                            }
+                        })
+                        .catch(err => {
+                            document.getElementById('messaggio').textContent = "Errore nel caricamento del file JSON.";
+                        });
+                } else {
+                    // Opzione per usare FileReader() se insisti su un input file
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        try {
+                            const jsonData = JSON.parse(event.target.result);
+                            const utente = jsonData.utente;
+    
+                            if (utente.user === usernameInput && utente.password === passwordInput) {
+                                localStorage.setItem('jsonData', JSON.stringify(jsonData));
+                                window.location.href = 'benvenuto.html';  // Reindirizza alla pagina di benvenuto
+                            } else {
+                                document.getElementById('messaggio').textContent = "Credenziali non valide.";
+                            }
+                        } catch (err) {
+                            document.getElementById('messaggio').textContent = "Errore nel file JSON.";
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
